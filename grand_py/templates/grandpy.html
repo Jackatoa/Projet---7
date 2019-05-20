@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GrandPy</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link type="text/css" href="{{ url_for('static', filename='css/bot.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <div class="col-md-12 mb-5 container-fluid" id="titre">
+        <div class="row">
+            <a href="/" id="logo">grandpy</a>
+        </div>
+    </div>
+    <div class="col-md-12 mt-5 mb-5 container-fluid">
+        <div class="row">
+            <ul id="menu">
+                <li>
+                    <a href="/"><span>Enfin un grand-père qui peut vraiment utiliser un ordinateur</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="col-md-8 col-xl-6 container chat mt-5">
+    <div class="card">
+        <div class="card-header msg_head d-flex h-10">
+            <div class="d-flex bd-highlight">
+            </div>
+        </div>
+        <div class="card-body" id="msg_card_body">
+            <div class="d-flex justify-content-start mb-4" id="grandpy_msg_template">
+                <div class="img_cont_msg">
+                    <img src="{{ url_for('static', filename='images/GrandPy2.png') }}"
+                         class="rounded-circle user_img_msg">
+                </div>
+                <div class="msg_cotainer">
+                    <p class="small">Que souhaites-tu que je te raconte mon petit ?</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mb-4 main_user_img" id="user_msg_template">
+                <div class="msg_cotainer_send">
+                    <p class="small user_msg_1">Avec quoi ramasse t-on la papaye ?</p>
+                </div>
+                <div class="img_cont_msg">
+                    <img src="{{ url_for('static', filename='images/GrandSon.png') }}"
+                         class="rounded-circle user_img_msg">
+                </div>
+            </div>
+        </div>
+        <p class="small" id="grandpy_writing"> GrandPy écrit...</p>
+        <div class="card-footer">
+            <form id="EntryForm" method="POST" action="">
+
+                <div class="input-group">
+                    {{ form.hidden_tag() }}
+                    <textarea type="text" name="" id="text"
+                              class="form-control custom-control type_msg"
+                              placeholder="Que voulez vous demander à GrandPy ?"></textarea>
+                    <button type="submit"
+                            class="input-group-addon btn btn-primary send_btn">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    <div class="footer-copyright text-center">
+        <div class="mt-5 mb-4 text-center">
+            <a href="#" class="fb-ic">
+                <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <a href="#" class="tw-ic">
+                <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <a href="#" class="gplus-ic">
+                <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <a href="#" class="li-ic">
+                <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <a href="#" class="ins-ic">
+                <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+            </a>
+            <a href="#" class="pin-ic">
+                <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+            </a>
+        </div>
+        <p>Xavier Endres - <a href="https://openclassrooms.com" target="_blank">Openclassrooms</a> -
+            <a href="https://github.com/Jackatoa" target="_blank">GitHub</a></p>
+    </div>
+
+</footer>
+<script src="{{ url_for('static', filename='js/grandpy.js') }}"></script>
+</body>
+</html>
