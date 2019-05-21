@@ -64,16 +64,17 @@
         <p class="small" id="grandpy_writing"> GrandPy écrit...</p>
         <div class="card-footer">
             <form id="EntryForm" method="POST" action="">
-
-                <div class="input-group">
+                <div>
                     {{ form.hidden_tag() }}
-                    <textarea type="text" name="" id="text"
-                              class="form-control custom-control type_msg"
-                              placeholder="Que voulez vous demander à GrandPy ?"></textarea>
-                    <button type="submit"
-                            class="input-group-addon btn btn-primary send_btn">
-                        {{ form.submit(class="btn btn-outline-info") }}
-                    </button>
+                    <div class="input-group">
+                            {{ form.entry(class="form-control
+                        type_msg", id="text",
+                            placeholder="Que voulez vous demander à GrandPy ?", type="text") }}
+                        <div class="send_btn">
+                            {{ form.submit(type="submit", class="btn send_btn_elt
+                            btn-outline-info") }}
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -102,7 +103,8 @@
                 <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
             </a>
         </div>
-        <p>Xavier Endres - <a href="https://openclassrooms.com" target="_blank">Openclassrooms</a> -
+        <p>Xavier Endres - <a href="https://openclassrooms.com"
+                              target="_blank">Openclassrooms</a> -
             <a href="https://github.com/Jackatoa" target="_blank">GitHub</a></p>
     </div>
 
