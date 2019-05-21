@@ -17,6 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link type="text/css" href="{{ url_for('static', filename='css/bot.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 </head>
 <body>
 <header>
@@ -42,6 +44,7 @@
             </div>
         </div>
         <div class="card-body" id="msg_card_body">
+
             <div class="d-flex justify-content-start mb-4" id="grandpy_msg_template">
                 <div class="img_cont_msg">
                     <img src="{{ url_for('static', filename='images/GrandPy2.png') }}"
@@ -61,15 +64,21 @@
                 </div>
             </div>
         </div>
-        <p class="small" id="grandpy_writing"> GrandPy écrit...</p>
+        <div class="typing-indicator" id="grandpy_writing">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
         <div class="card-footer">
             <form id="EntryForm" method="POST" action="">
                 <div>
                     {{ form.hidden_tag() }}
                     <div class="input-group">
-                            {{ form.entry(class="form-control
+                        {{ form.entry(class="form-control
                         type_msg", id="text",
-                            placeholder="Que voulez vous demander à GrandPy ?", type="text") }}
+                        placeholder="Que voulez vous demander à GrandPy ?", type="text") }}
                         <div class="send_btn">
                             {{ form.submit(type="submit", class="btn send_btn_elt
                             btn-outline-info") }}
@@ -109,6 +118,9 @@
     </div>
 
 </footer>
+
+
 <script src="{{ url_for('static', filename='js/grandpy.js') }}"></script>
+
 </body>
 </html>

@@ -2,7 +2,7 @@ $(function () {
     var $msg_card_body, EntryForm;
     $msg_card_body = $('#msg_card_body');
     EntryForm = $('#EntryForm');
-    $("#grandpy_writing").show();
+    $("#grandpy_writing").hide();
     EntryForm.on('submit', function (e) {
         e.preventDefault();
         var text = $.trim($('#text').val());
@@ -19,7 +19,8 @@ $(function () {
         $.trim($('#text').val(''));
 
         $.post('/bot', {text: text,}).done(function (response) {
-            $("#grandpy_writing").hide();
+            $("#grandpy_writing").show();
+            setTimeout(function() {
             $msg_card_body.append('<div class="d-flex justify-content-start mb-4" id="grandpy_msg_template">' +
                 '<div class="img_cont_msg">' +
             '<img src="../static/images/GrandPy2.png" class="rounded-circle user_img_msg"></div>' +
@@ -27,6 +28,8 @@ $(function () {
             '<p class="small">' + response['answer'] + '</p>' +
             '</div>' +
             '</div>');
+            $("#grandpy_writing").hide();}, 3000);
+
         })
 
 
@@ -37,6 +40,7 @@ $(function () {
 
 
 });
+
 
 
 
