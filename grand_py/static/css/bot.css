@@ -20,7 +20,6 @@ body, html {
 }
 #grandpy_writing{
     margin-left: 20px;
-    color:
 
 }
 #msg_card_body {
@@ -41,7 +40,6 @@ body, html {
     align-content: center;
 }
 
-
 .type_msg {
     background-color: rgba(0, 0, 0, 0.3) !important;
     border: 0 !important;
@@ -56,7 +54,6 @@ body, html {
     outline: 0px !important;
 }
 
-
 .send_btn {
     border-radius: 0 15px 15px 0 !important;
     background-color: rgba(0, 0, 0, 0.3) !important;
@@ -64,13 +61,8 @@ body, html {
     color: white !important;
     cursor: pointer;
 }
-
-
-.user_img {
-    height: 100px;
-    width: 100px;
-    border: 1.5px solid #f5f6fa;
-
+.send_btn_elt{
+    margin:10px;)
 }
 
 .user_img_msg {
@@ -79,7 +71,8 @@ body, html {
     border: 1.5px solid #f5f6fa;
 
 }
-
+.input-group .form-control{left:0px; float:left; width:auto !important}
+.input-group .input-group-addon{float:left; width:auto !important}
 .img_cont {
     position: relative;
     height: 70px;
@@ -99,6 +92,7 @@ body, html {
     background-color: #82ccdd;
     padding: 10px;
     position: relative;
+    overflow: auto;
 }
 
 .msg_cotainer_send {
@@ -109,6 +103,7 @@ body, html {
     background-color: #78e08f;
     padding: 10px;
     position: relative;
+    overflow: auto;
 }
 
 
@@ -137,7 +132,6 @@ body, html {
     position: absolute;
     left: 6px;
     top: 4px;
-    background: url("../static/stripes.png") repeat;
     background-image: -webkit-linear-gradient(left top, transparent 0%, transparent 25%, #0f6674 25%, #0f6674 50%, transparent 50%, transparent 75%, #0f6674 75%);
     background-size: 4px 4px;
     -webkit-background-clip: text;
@@ -292,31 +286,20 @@ html .msg_cotainer, .msg_cotainer_send {
 
 }
 
-@media (max-width: 515px) {
+@media (max-width: 700px) {
     .input-group-addon, .input-group-btn, .input-group .form-control {
         display: block;
-        margin-bottom: 10px;
         clear: both;
     }
-
-    .input-group {
-        display: block;
-    }
-
-
-
     .type_msg {
-        width: 100%;
-        margin: auto;
+        margin-bottom: 100px;
         border-radius: 15px 15px 15px 15px !important;
-    }
-    textarea {
         min-width: 100%;
     }
     .send_btn {
         margin: auto;
+        text-align: center;
         border-radius: 15px 15px 15px 15px !important;
-
     }
 }
 
