@@ -17,6 +17,8 @@ $(function () {
             '</div>' +
             '</div>');
         $.trim($('#text').val(''));
+        var pageHeight = $('#msg_card_body').height();
+        $('#msg_card_body').scrollTop(pageHeight);
 
         $.post('/bot', {text: text,}).done(function (big_answer) {
             $("#grandpy_writing").show();
@@ -28,19 +30,19 @@ $(function () {
             '<p class="small">' + big_answer['answer'] + '</p>' +
             '</div>' +
             '</div>');
-            $("#grandpy_writing").hide();}, 3000);
+            $("#grandpy_writing").hide();
+            playSound()
+            var pageHeight = $('#msg_card_body').height();
+            $('#msg_card_body').scrollTop(pageHeight);
+            }, 3000);
 
         })
-
-
-
         }
-
     });
-
-
 });
 
 
-
-
+function playSound() {
+          var sound = document.getElementById("audio");
+          sound.play();
+      }
