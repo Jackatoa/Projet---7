@@ -31,6 +31,9 @@ class Bot:
         elif not re.search(r'[^.]', self.question):
             self.answer = "Tu es bien silencieux mon petit !"
             return True
+        elif not re.search(r'[^!]', self.question):
+            self.answer = "Ne soit pas interloqué mon petit !"
+            return True
         elif not re.search(r'[^zZ]', self.question):
             self.answer = "Réveille toi mon petit !"
             return True
@@ -42,4 +45,5 @@ class Bot:
 
     def search_question(self):
         pass
+
 
