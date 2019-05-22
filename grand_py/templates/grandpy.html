@@ -9,16 +9,9 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link type="text/css" href="{{ url_for('static', filename='css/bot.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
 </head>
 <body>
 <header>
@@ -52,15 +45,6 @@
                 </div>
                 <div class="msg_cotainer">
                     <p class="small">Que souhaites-tu que je te raconte mon petit ?</p>
-                </div>
-            </div>
-            <div class="d-flex justify-content-end mb-4 main_user_img" id="user_msg_template">
-                <div class="msg_cotainer_send">
-                    <p class="small user_msg_1">Avec quoi ramasse t-on la papaye ?</p>
-                </div>
-                <div class="img_cont_msg">
-                    <img src="{{ url_for('static', filename='images/GrandSon.png') }}"
-                         class="rounded-circle user_img_msg">
                 </div>
             </div>
         </div>
@@ -118,9 +102,6 @@
     </div>
 
 </footer>
-
-
 <script src="{{ url_for('static', filename='js/grandpy.js') }}"></script>
-
 </body>
 </html>
