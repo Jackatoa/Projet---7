@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, request, jsonify
+from flask import render_template, url_for, request
 from grand_py import app
 from grand_py.forms import EntryForm
 from grand_py.bot import Bot
@@ -14,7 +14,7 @@ def home():
 
 @app.route("/bot", methods=['POST'])
 def bot():
-    bot = Bot()
-    return jsonify({'answer':
-                    bot.testtalk(request.form['text'])})
+    bot = Bot(request.form['text'])
+    return bot.grandpyTalk()
+
 

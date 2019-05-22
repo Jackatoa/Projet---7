@@ -18,14 +18,14 @@ $(function () {
             '</div>');
         $.trim($('#text').val(''));
 
-        $.post('/bot', {text: text,}).done(function (response) {
+        $.post('/bot', {text: text,}).done(function (big_answer) {
             $("#grandpy_writing").show();
             setTimeout(function() {
             $msg_card_body.append('<div class="d-flex justify-content-start mb-4" id="grandpy_msg_template">' +
                 '<div class="img_cont_msg">' +
             '<img src="../static/images/GrandPy2.png" class="rounded-circle user_img_msg"></div>' +
             '<div class="msg_cotainer">' +
-            '<p class="small">' + response['answer'] + '</p>' +
+            '<p class="small">' + big_answer['answer'] + '</p>' +
             '</div>' +
             '</div>');
             $("#grandpy_writing").hide();}, 3000);
