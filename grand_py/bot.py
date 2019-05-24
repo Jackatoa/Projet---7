@@ -2,6 +2,8 @@ from flask import jsonify
 import re
 from grand_py.wiki import Wiki
 from grand_py.answer import Answer
+from grand_py.map import Map
+
 
 class Bot:
     stop_words = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "ainsi", "ait",
@@ -83,12 +85,17 @@ class Bot:
         self.answer = None
         self.wiki_answer = None
         self.map_answer = None
+        self.coord_lat = None
+        self.coord_long = None
         self.question = question
 
     def json_answer(self):
         if self.wiki_answer and self.map_answer:
-            return jsonify({'answer': self.answer, 'wiki_answer': self.wiki_answer,
-                            'map_answer': self.map_answer})
+            return jsonify({'answer': self.answer,
+                            'wiki_answer': self.wiki_answer,
+                            'map_answer': self.map_answer,
+                            'answer_lat': self.coord_lat,
+                            'answer_long': self.coord_long})
         elif self.wiki_answer:
             return jsonify({'answer': self.answer, 'wiki_answer': self.wiki_answer})
         else:
@@ -112,6 +119,12 @@ class Bot:
         if self.question.isdigit():
             self.answer = self.answer.get_stupid_answer(0)
             return True
+        elif "merci" in self.question.lower():
+            self.answer = "Mais de rien mon petit !"
+            return True
+        elif "Bonjour" in self.question.lower():
+            self.answer = "Bonjour mon petit ! Souhaites-tu entendre une histoire ?"
+            return True
         elif not re.search(r'[^.]', self.question):
             self.answer = self.answer.get_stupid_answer(1)
             return True
@@ -129,15 +142,23 @@ class Bot:
 
     def grandpy_try(self):
         wikianswer = Wiki(self.question)
+        streetanswer = Map(self.question)
         if wikianswer.exist():
             self.answer = "Je peux te dire beaucoup sur ce sujet "
             if wikianswer.is_location():
-                self.map_answer = "Ceci est une location"
+                self.map_answer = "Voilà son emplacement :"
+                self.coord_lat = wikianswer.lat
+                self.coord_long = wikianswer.long
                 self.wiki_answer = wikianswer.getSummary()
                 return self.json_answer()
             else:
                 self.wiki_answer = wikianswer.getSummary()
                 return self.json_answer()
+        elif streetanswer.exist():
+            self.answer = "Je connais cet endroit, il est juste ici :"
+            self.map_answer = "INFOS OPEN STREET MAP"
+            self.coord_lat = wikianswer.lat
+            self.coord_long = wikianswer.long
         else:
             self.answer = "Tu sais je suis un peu dépassé avec les termes que vous employez vous " \
                           "les jeunes. Ne voudrais pas tu partager un werther's original plutôt ?"
