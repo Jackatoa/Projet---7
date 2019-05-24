@@ -402,3 +402,10 @@ html .msg_cotainer, .msg_cotainer_send {
     color-stop(0.86, rgb(28, 58, 148)));
 }
 
+#mapid { height: 250px;
+width: 100%
+}
+
+#mapidbox {
+min-width: 80%
+}
