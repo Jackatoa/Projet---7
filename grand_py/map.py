@@ -1,9 +1,34 @@
+import requests
 
 
 class Map:
 
     def __init__(self, search):
+        self.api_url = 'https://maps.googleapis.com/maps/api/geocode/json?'
         self.search = search
+        self.parameters = {
+            'address': self.search,
+            'key': 'AIzaSyBlM1lBFayUTLiN8ZiwczP6DWfWGNNYlT8'
+        }
+        self.response = requests.get(url=self.api_url, params=self.parameters).json()
+        self.location = None
+        self.latitude = None
+        self.longitude = None
 
     def exist(self):
-        return False
+        if not self.response['results']:
+            return False
+        else:
+            self.location = self.response['results'][0]['geometry']['location']
+            self.latitude = self.location['lat']
+            self.longitude = self.location['lng']
+            return True
+
+
+
+
+
+
+
+
+
