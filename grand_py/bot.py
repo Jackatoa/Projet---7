@@ -90,9 +90,14 @@ class Bot:
         self.question = question
 
     def json_answer(self):
-        if self.wiki_answer and self.map_answer:
+        if self.map_answer and self.wiki_answer:
             return jsonify({'answer': self.answer,
                             'wiki_answer': self.wiki_answer,
+                            'map_answer': self.map_answer,
+                            'answer_lat': self.coord_lat,
+                            'answer_long': self.coord_long})
+        elif self.map_answer:
+            return jsonify({'answer': self.answer,
                             'map_answer': self.map_answer,
                             'answer_lat': self.coord_lat,
                             'answer_long': self.coord_long})
@@ -122,7 +127,7 @@ class Bot:
         elif "merci" in self.question.lower():
             self.answer = "Mais de rien mon petit !"
             return True
-        elif "Bonjour" in self.question.lower():
+        elif "bonjour" in self.question.lower():
             self.answer = "Bonjour mon petit ! Souhaites-tu entendre une histoire ?"
             return True
         elif not re.search(r'[^.]', self.question):
@@ -143,7 +148,14 @@ class Bot:
     def grandpy_try(self):
         wikianswer = Wiki(self.question)
         streetanswer = Map(self.question)
-        if wikianswer.exist():
+        if self.check_adress():
+            if streetanswer.exist():
+                self.answer = "Je connais cet endroit, il est juste ici :"
+                self.map_answer = "INFOS OPEN STREET MAP"
+                self.coord_lat = streetanswer.latitude
+                self.coord_long = streetanswer.longitude
+                return self.json_answer()
+        elif wikianswer.exist():
             self.answer = "Je peux te dire beaucoup sur ce sujet "
             if wikianswer.is_location():
                 self.map_answer = "Voilà son emplacement :"
@@ -154,11 +166,12 @@ class Bot:
             else:
                 self.wiki_answer = wikianswer.getSummary()
                 return self.json_answer()
-        elif streetanswer.exist():
-            self.answer = "Je connais cet endroit, il est juste ici :"
-            self.map_answer = "INFOS OPEN STREET MAP"
-            self.coord_lat = wikianswer.lat
-            self.coord_long = wikianswer.long
         else:
             self.answer = "Tu sais je suis un peu dépassé avec les termes que vous employez vous " \
                           "les jeunes. Ne voudrais pas tu partager un werther's original plutôt ?"
+
+    def check_adress(self):
+        adresslst = ["rue", "avenue", "ville", "allée", "allee", "chemin", "appartement",
+                     "residence", "boulevard"]
+        if any(word in self.question for word in adresslst):
+            return True
