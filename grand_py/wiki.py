@@ -8,8 +8,7 @@ class Wiki:
         self.parameters = {"action": "query",
                            "format": "json",
                            "srsearch": self.search,
-                           "list": "search",
-                           "redirects": "1"}
+                           "list": "search"}
         self.response = requests.get(url=self.api_url, params=self.parameters)
         self.data = self.response.json()
         self.title = None
@@ -20,6 +19,7 @@ class Wiki:
 
     def getSummary(self):
         self.get_title()
+        print(self.data)
         parameters = {"action": "query",
                       "prop": "extracts",
                       "format": "json",
@@ -36,15 +36,13 @@ class Wiki:
         self.get_title()
         parameters = {
             'action': "query",
-            'prop'  : "coordinates",
+            'prop': "coordinates",
             'titles': self.title,
             'format': "json"
         }
         new_resp = requests.get(url=self.api_url, params=parameters)
         self.pageid = next(iter(new_resp.json()['query']['pages']))
         data = new_resp.json()
-        print(new_resp.json()['query']['pages'])
-        print(new_resp.json()['query']['pages'][self.pageid]['coordinates'][0]['lat'])
         if 'coordinates' in data['query']['pages'][self.pageid].keys():
             self.lat = new_resp.json()['query']['pages'][self.pageid]['coordinates'][0]['lat']
             self.long = new_resp.json()['query']['pages'][self.pageid]['coordinates'][0]['lon']
