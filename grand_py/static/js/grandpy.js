@@ -21,8 +21,6 @@ $(function () {
                 '</div>');
             $.trim($('#text').val(''));
             $("#msg_card_body").stop().animate({scrollTop: $("#msg_card_body")[0].scrollHeight}, 1000);
-
-
             $.post('/bot', {text: text,}).done(function (big_answer) {
                 $("#grandpy_writing").show();
                 setTimeout(function () {
@@ -41,13 +39,15 @@ $(function () {
                             '<p class="small">' + big_answer['wiki_answer'] + '</p>' +
                             '</div>' +
                             '</div>');
-
                     }
                     if (big_answer['map_answer']) {
-
+                        if (document.contains(document.getElementById("mapid"))) {
+                            var element = document.getElementById("mapid");
+                            element.parentNode.removeChild(element);
+                        }
                         $msg_card_body.append('<div class="d-flex justify-content-start mb-4"' +
                             ' id="grandpy_msg_template">' +
-                            '<div class="img_cont_msg" >' +
+                            '<div class="img_cont_msg">' +
                             '<img src="../static/images/GrandPy2.png" class="rounded-circle user_img_msg"></div>' +
                             '<div class="msg_cotainer" id="mapidbox">' +
                             '<p class="small">' + big_answer['map_answer'] + '</p>' +
@@ -56,6 +56,7 @@ $(function () {
                             '</div>' +
                             '</div>');
                         var mymap = L.map('mapid').setView([big_answer['answer_lat'], big_answer['answer_long']], 13);
+                        L.marker([big_answer['answer_lat'], big_answer['answer_long']]).addTo(mymap);
                         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                             maxZoom: 18,
@@ -73,9 +74,7 @@ $(function () {
     });
 });
 
-
 function playSound() {
     var sound = document.getElementById("audio");
     sound.play();
 };
-
