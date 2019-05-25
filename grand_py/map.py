@@ -8,7 +8,7 @@ class Map:
         self.search = search
         self.parameters = {
             'address': self.search,
-            'key': ''
+            'key': 'AIzaSyBlM1lBFayUTLiN8ZiwczP6DWfWGNNYlT8'
         }
         self.response = requests.get(url=self.api_url, params=self.parameters).json()
         self.location = None
