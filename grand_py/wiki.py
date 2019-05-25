@@ -19,7 +19,6 @@ class Wiki:
 
     def getSummary(self):
         self.get_title()
-        print(self.data)
         parameters = {"action": "query",
                       "prop": "extracts",
                       "format": "json",
