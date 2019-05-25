@@ -2,3 +2,4 @@ venv/
 .idea/
 Livrable/
 prez/
+grand_py/__pycache__/
