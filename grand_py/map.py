@@ -19,6 +19,7 @@ class Map:
 
     def adress_exist(self):
         """Check if an adress can be found"""
+        print("adresse exist" + self.response['results'])
         if not self.response['results']:
             return False
         else:
@@ -39,6 +40,7 @@ class Map:
             'fields'   : 'geometry/location'
         }
         self.response = requests.get(url=url, params=parameters).json()
+        print("location exist" + self.response['results'])
         if self.response['results']:
             return True
 
