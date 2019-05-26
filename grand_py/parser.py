@@ -1,4 +1,5 @@
 class Parser:
+    """Contains all list of words"""
     stop_words = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "ainsi",
                   "ait",
                   "allaient", "allo", "allons", "allô", "alors", "anterieur", "anterieure",

@@ -1,7 +1,7 @@
 import requests
 import re
 class Wiki:
-
+    """Contains all the wiki api"""
     def __init__(self, search):
         self.api_url = "https://fr.wikipedia.org/w/api.php"
         self.search = search
@@ -16,8 +16,8 @@ class Wiki:
         self.lat = None
         self.long = None
 
-
     def getSummary(self):
+        """Return the wikipedia summary"""
         self.get_title()
         parameters = {"action": "query",
                       "prop": "extracts",
@@ -32,6 +32,7 @@ class Wiki:
         return self.clean_result(new_resp.json()['query']['pages'][self.pageid]['extract'])
 
     def is_location(self):
+        """Check if this place got coordinates on the wiki"""
         self.get_title()
         parameters = {
             'action': "query",
@@ -48,14 +49,17 @@ class Wiki:
             return True
 
     def exist(self):
+        """Check if something can be found with the user input"""
         if self.data['query']['searchinfo']['totalhits'] != 0:
             return True
 
     def clean_result(self, text):
+        """Clean the summary from a type of content"""
         new_text = re.sub('\[(.*?)\]', '', text)
         new_text = re.sub('\((.*?)\)', '', new_text)
         return new_text
 
     def get_title(self):
+        """Return the title of a page"""
         self.title = self.data['query']['search'][0]['title']
 

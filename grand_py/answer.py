@@ -1,6 +1,7 @@
 import random
 
 class Answer():
+    """Contains all the answer"""
     answer_stupid = ["Tu es bon en algèbre mon petit !", "Tu es bien silencieux mon petit !",
                      "Ne soit pas interloqué mon petit !", "Réveille toi mon petit !",
                      "Arrête de grommeler mon petit !", "Mais de rien mon petit !"]
@@ -13,23 +14,11 @@ class Answer():
                       "Je suis trés impréssioner par ta maîtrise de ce langage, mais je n'y "
                       "comprends rien.", "Ce n'est pas avec ça qu'on invoque Cthulu ?"]
     answer_location_here = ["Ca se trouve juste ici :", "Ca se trouve juste là :"]
-    def __init__(self):
-        pass
 
     def get_stupid_answer(self, number):
+        """Return a classic answer"""
         return Answer.answer_stupid[number]
 
-    def get_error_answer(self):
-        return Answer.answer_error[0]
-
-    def get_wiki_answer(self):
-        return Answer.answer_wiki_find[0]
-
-    def get_location_answer(self):
-        return Answer.answer_location_find[0]
-
-    def get_old_answer(self):
-        return Answer.answer_too_old[0]
-
     def random_answer(self, list):
+        """Return a random answer"""
         return random.choice(list)

@@ -2,7 +2,7 @@ import requests
 
 
 class Map:
-
+    """Contains all the google api"""
     def __init__(self, address, place):
         self.api_url = 'https://maps.googleapis.com/maps/api/geocode/json?'
         self.search = address
@@ -18,6 +18,7 @@ class Map:
         self.longitude = None
 
     def adress_exist(self):
+        """Check if an adress can be found"""
         if not self.response['results']:
             return False
         else:
@@ -27,6 +28,7 @@ class Map:
             return True
 
     def location_exist(self):
+        """Check if a location can be found"""
         url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         self.place += " france"
         parameters = {

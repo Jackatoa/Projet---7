@@ -7,6 +7,7 @@ from grand_py.parser import Parser
 from unidecode import unidecode
 
 class Bot:
+    """Contains main algorithms for the application"""
     def __init__(self, question):
         self.answer = None
         self.wiki_answer = None
@@ -18,6 +19,7 @@ class Bot:
         self.mapquestion = None
 
     def json_answer(self):
+        """Check answer and return them in the json format"""
         if self.map_answer and self.wiki_answer:
             return jsonify({'answer'     : self.answer,
                             'wiki_answer': self.wiki_answer,
@@ -35,6 +37,7 @@ class Bot:
             return jsonify({'answer': self.answer})
 
     def grandpyTalk(self):
+        """Main function for grandpy answer"""
         if self.big_check():
             return self.json_answer()
         else:
@@ -47,6 +50,7 @@ class Bot:
             return self.json_answer()
 
     def clean_question(self, lst):
+        """clean the questions of indesirable characters"""
         self.question = self.question.replace("'", ' ')
         list_question = self.question.split(" ")
         new_list_question = []
@@ -56,6 +60,7 @@ class Bot:
         return ' '.join(new_list_question)
 
     def big_check(self):
+        """Check if the user input deserve a simple answer"""
         self.answer = Answer()
         if self.question.isdigit():
             self.answer = self.answer.get_stupid_answer(0)
@@ -79,6 +84,7 @@ class Bot:
             return False
 
     def grandpy_try(self):
+        """Check which style of answer should be choosen"""
         print(self.mapquestion.response['results'])
         print(self.question.split())
         if self.check_adress() and self.mapquestion.adress_exist():
@@ -92,10 +98,12 @@ class Bot:
             self.answer = self.answer.get_old_answer()
 
     def check_adress(self):
+        """Check if the question contain an adress type word"""
         if any(word in self.question for word in Parser.adresslst):
             return True
 
     def grandpy_find_adress(self):
+        """Return an answer with the google map api"""
         self.answer = a.random_answer(a.answer_location_find)
         self.map_answer = a.random_answer(a.answer_location_here)
         self.coord_lat = self.mapquestion.latitude
@@ -103,6 +111,7 @@ class Bot:
         return self.json_answer()
 
     def grandpy_find_wiki(self):
+        """Return an answer with the wiki api"""
         self.answer = a.random_answer(a.answer_wiki_find)
         if self.wikiquestion.is_location():
             self.map_answer = a.random_answer(a.answer_location_here)
@@ -115,6 +124,7 @@ class Bot:
             return self.json_answer()
 
     def grandpy_find_location(self):
+        """Return an answer with the google place api"""
         self.coord_lat = self.mapquestion.response['results'][0]['geometry']['location'][
             'lat']
         self.coord_long = self.mapquestion.response['results'][0]['geometry']['location'][
