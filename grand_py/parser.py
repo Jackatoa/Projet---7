@@ -73,9 +73,13 @@ class Parser:
                   "vers", "via", "vif", "vifs", "vingt", "vivat", "vive", "vives", "vlan", "voici",
                   "voilà", "vont", "vos", "votre", "vous", "vous-mêmes", "vu", "vé", "vôtre",
                   "vôtres", "w", "x", "y", "z", "zut", "à", "â", "ça", "ès", "étaient", "étais",
-                  "était", "étant", "été", "être", "ô"]
+                  "était", "étant", "été", "être", "ô", "salut", "grandpy", "papy", "papi",
+                  "grand-py", "d", "l", "estce", "estu", "estil", "saurais", "connaitrais",
+                  "veut", "veux"]
 
-    locationwords = ["sais", "savez", "connais", "connait", "connaissez"]
+    locationwords = ["sais", "savez", "connais", "connait", "connaissez", "adresse", "l'adresse",\
+                    "indique", "trouver", "trouve", "trouvent", "trouves", "situe", "situent",
+                     "situs", "affiche", "affichez", "montre", "montrez", "voir", "localisation"]
 
     adresslst = ["rue", "avenue", "ville", "allée", "allee", "chemin", "appartement",
                  "residence", "boulevard"]
