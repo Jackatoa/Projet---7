@@ -5,7 +5,7 @@ class Answer():
     answer_stupid = ["Tu es bon en algèbre mon petit !", "Tu es bien silencieux mon petit !",
                      "Ne soit pas interloqué mon petit !", "Réveille toi mon petit !",
                      "Arrête de grommeler mon petit !", "Mais de rien mon petit !"]
-    answer_wiki_find = ["J'en ai déjà entendu parlé.", "Je connais parfaitement ce sujet !",
+    answer_wiki_find = ["J'en ai déjà entendu parler.", "Je connais parfaitement ce sujet !",
                         "Je l'ai vu à la télé."]
     answer_location_find = ["C'est un endroit magnifique !", "J'y ai été quand j'étais jeune.",
                             "J'y passe tout mes dimanches !"]
