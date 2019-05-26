@@ -44,7 +44,6 @@ class Bot:
             self.question = unidecode(self.question)
             self.question = self.clean_question(Parser.stop_words)
             self.wikiquestion = Wiki(self.clean_question(Parser.locationwords))
-            print(self.clean_question(Parser.locationwords))
             self.mapquestion = Map(self.question, self.clean_question(Parser.locationwords))
             self.grandpy_try()
             return self.json_answer()
@@ -84,12 +83,11 @@ class Bot:
             return False
 
     def grandpy_try(self):
+        print(self.question)
         """Check which style of answer should be choosen"""
-        print(self.mapquestion.response['results'])
-        print(self.question.split())
         if self.check_adress() and self.mapquestion.adress_exist():
             self.grandpy_find_adress()
-        elif any(word in self.question.split() for word in Parser.adresslst) and \
+        elif any(word in self.question.split() for word in Parser.locationwords) and \
                 self.mapquestion.location_exist():
             self.grandpy_find_location()
         elif self.wikiquestion.exist():
