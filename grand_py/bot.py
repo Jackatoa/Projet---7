@@ -61,6 +61,7 @@ class Bot:
     def big_check(self):
         """Check if the user input deserve a simple answer"""
         self.answer = Answer()
+        print("big check question" + self.question)
         if self.question.isdigit():
             self.answer = self.answer.get_stupid_answer(0)
             return True
