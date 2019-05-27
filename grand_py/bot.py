@@ -98,7 +98,7 @@ class Bot:
             print("wiki exist")
             self.grandpy_find_wiki()
         else:
-            self.answer = self.answer.get_old_answer()
+            self.answer = self.answer.random_answer(Answer.answer_too_old)
 
     def check_adress(self):
         """Check if the question contain an adress type word"""
