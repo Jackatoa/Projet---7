@@ -45,6 +45,7 @@ class Bot:
             self.question = self.clean_question(Parser.stop_words)
             self.wikiquestion = Wiki(self.clean_question(Parser.locationwords))
             self.mapquestion = Map(self.question, self.clean_question(Parser.locationwords))
+            print(self.question)
             self.grandpy_try()
             return self.json_answer()
 
@@ -87,11 +88,14 @@ class Bot:
         print(self.question)
         """Check which style of answer should be choosen"""
         if self.check_adress() and self.mapquestion.adress_exist():
+            print("check adresse + adress_exist")
             self.grandpy_find_adress()
         elif any(word in self.question.split() for word in Parser.locationwords) and \
                 self.mapquestion.location_exist():
+            print("locationwords + location_exist")
             self.grandpy_find_location()
         elif self.wikiquestion.exist():
+            print("wiki exist")
             self.grandpy_find_wiki()
         else:
             self.answer = self.answer.get_old_answer()
@@ -113,12 +117,14 @@ class Bot:
         """Return an answer with the wiki api"""
         self.answer = a.random_answer(a.answer_wiki_find)
         if self.wikiquestion.is_location():
+            print("wiki + LOCATION")
             self.map_answer = a.random_answer(a.answer_location_here)
             self.coord_lat = self.wikiquestion.lat
             self.coord_long = self.wikiquestion.long
             self.wiki_answer = self.wikiquestion.getSummary()
             return self.json_answer()
         else:
+            print("WIKI SANS LOCATION")
             self.wiki_answer = self.wikiquestion.getSummary()
             return self.json_answer()
 

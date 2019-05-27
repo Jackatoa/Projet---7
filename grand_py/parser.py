@@ -8,7 +8,8 @@ class Parser:
                   "aurait", "auront", "aussi", "autre", "autrefois", "autrement", "autres",
                   "autrui", "aux", "auxquelles", "auxquels", "avaient", "avais", "avait", "avant",
                   "avec", "avoir", "avons", "ayant", "b", "bah", "bas", "basee", "bat", "beau",
-                  "beaucoup", "bien", "bigre", "boum", "bravo", "brrr", "c", "car", "ce", "ceci",
+                  "beaucoup", "bien", "bigre", "boum", "bravo", "brrr", "c", "ca", "ça", "car",
+                  "ce", "ceci",
                   "cela", "celle", "celle-ci", "celle-là", "celles", "celles-ci", "celles-là",
                   "celui", "celui-ci", "celui-là", "cent", "cependant", "certain", "certaine",
                   "certaines", "certains", "certes", "ces", "cet", "cette", "ceux", "ceux-ci",
@@ -76,10 +77,11 @@ class Parser:
                   "vôtres", "w", "x", "y", "z", "zut", "à", "â", "ça", "ès", "étaient", "étais",
                   "était", "étant", "été", "être", "ô", "salut", "grandpy", "papy", "papi",
                   "grand-py", "d", "l", "estce", "estu", "estil", "saurais", "connaitrais",
-                  "veut", "veux"]
+                  "veut", "veux", "bonjour", "wesh", "grandpapy", "te", "plait", "sil", "il",
+                  "s", "raconte"]
 
-    locationwords = ["sais", "savez", "connais", "connait", "connaissez", "adresse", "l'adresse",\
-                    "indique", "trouver", "trouve", "trouvent", "trouves", "situe", "situent",
+    locationwords = ["sais", "savez", "connais", "connait", "connaissez", "adresse", "l'adresse", \
+                     "indique", "trouver", "trouve", "trouvent", "trouves", "situe", "situent",
                      "situs", "affiche", "affichez", "montre", "montrez", "voir", "localisation"]
 
     adresslst = ["rue", "avenue", "ville", "allée", "allee", "chemin", "appartement",
