@@ -138,10 +138,8 @@ class Bot:
 
     def grandpy_find_location(self, arg):
         """Return an answer with the google place api"""
-        self.coord_lat = self.mapquestion.response['results'][0]['geometry']['location'][
-            'lat']
-        self.coord_long = self.mapquestion.response['results'][0]['geometry']['location'][
-            'lng']
+        self.coord_lat = self.mapquestion.response['results'][0]['geometry']['location']['lat']
+        self.coord_long = self.mapquestion.response['results'][0]['geometry']['location']['lng']
         self.answer = a.random_answer(a.answer_location_find)
         self.map_answer = a.random_answer(a.answer_location_here)
         newquestion = arg + self.clean_question(Parser.locationwords)
