@@ -55,15 +55,15 @@ $(function () {
                             '</div>' +
                             '</div>' +
                             '</div>');
-                        var mymap = L.map('mapid').setView([big_answer['answer_lat'], big_answer['answer_long']], 13);
+                        var mymap = L.map('mapid').setView([big_answer['answer_lat'], big_answer['answer_long']], big_answer['zoom']);
                         L.marker([big_answer['answer_lat'], big_answer['answer_long']]).addTo(mymap);
                         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            minZoom: 0,
                             maxZoom: 18,
                             id: 'mapbox.streets',
                             accessToken: 'pk.eyJ1IjoiamFja2F0b2EiLCJhIjoiY2p3MmVwNW5yMDVzbzN5cW55bjVxdWhidCJ9.jtwQWGRlS8_emw5VM23VLg'
                         }).addTo(mymap);
-
                     }
                     $("#grandpy_writing").hide();
                     playSound()
