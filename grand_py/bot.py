@@ -9,6 +9,7 @@ from unidecode import unidecode
 
 class Bot:
     """Contains main algorithms for the application"""
+
     def __init__(self, question):
         self.answer = None
         self.wiki_answer = None
@@ -18,6 +19,7 @@ class Bot:
         self.question = question
         self.wikiquestion = None
         self.mapquestion = None
+        self.zoom = 13
 
     def json_answer(self):
         """Check answer and return them in the json format"""
@@ -26,12 +28,14 @@ class Bot:
                             'wiki_answer': self.wiki_answer,
                             'map_answer' : self.map_answer,
                             'answer_lat' : self.coord_lat,
-                            'answer_long': self.coord_long})
+                            'answer_long': self.coord_long,
+                            'zoom'       : self.zoom})
         elif self.map_answer:
             return jsonify({'answer'     : self.answer,
                             'map_answer' : self.map_answer,
                             'answer_lat' : self.coord_lat,
-                            'answer_long': self.coord_long})
+                            'answer_long': self.coord_long,
+                            'zoom': self.zoom})
         elif self.wiki_answer:
             return jsonify({'answer': self.answer, 'wiki_answer': self.wiki_answer})
         else:
@@ -92,6 +96,7 @@ class Bot:
         """Check which style of answer should be choosen"""
         if self.question in Parser.cleaned_countries:
             print("est un pays")
+            self.zoom = 4
             if self.question.lower() == "france":
                 self.grandpy_find_location(" ")
             else:
@@ -151,5 +156,6 @@ class Bot:
 
     def clean_words(self):
         pass
+
 
 a = Answer()
