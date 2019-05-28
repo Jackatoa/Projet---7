@@ -6,6 +6,7 @@ from grand_py.map import Map
 from grand_py.parser import Parser
 from unidecode import unidecode
 
+
 class Bot:
     """Contains main algorithms for the application"""
     def __init__(self, question):
@@ -38,6 +39,8 @@ class Bot:
 
     def grandpyTalk(self):
         """Main function for grandpy answer"""
+        p = Parser()
+        p.clean_countries()
         if self.big_check():
             return self.json_answer()
         else:
@@ -52,6 +55,7 @@ class Bot:
     def clean_question(self, lst):
         """clean the questions of indesirable characters"""
         self.question = self.question.replace("'", ' ')
+        self.question = self.question.replace("-", ' ')
         list_question = self.question.split(" ")
         new_list_question = []
         for x in list_question:
@@ -62,7 +66,6 @@ class Bot:
     def big_check(self):
         """Check if the user input deserve a simple answer"""
         self.answer = Answer()
-        print("big check question {0}".format(self.question))
         if self.question.isdigit():
             self.answer = self.answer.get_stupid_answer(0)
             return True
@@ -87,13 +90,18 @@ class Bot:
     def grandpy_try(self):
         print(self.question)
         """Check which style of answer should be choosen"""
-        if self.check_adress() and self.mapquestion.adress_exist():
+        if self.question in Parser.cleaned_countries:
+            print("est un pays")
+            if self.question == "france":
+                self.grandpy_find_location("")
+            else:
+                self.grandpy_find_location("pays ")
+        elif self.check_adress() and self.mapquestion.adress_exist():
             print("check adresse + adress_exist")
             self.grandpy_find_adress()
-        elif any(word in self.question.split() for word in Parser.locationwords) and \
-                self.mapquestion.location_exist():
-            print("locationwords + location_exist")
-            self.grandpy_find_location()
+        elif self.mapquestion.map_exist():
+            print("mapexist")
+            self.grandpy_find_location("commune ")
         elif self.wikiquestion.exist():
             print("wiki exist")
             self.grandpy_find_wiki()
@@ -128,7 +136,7 @@ class Bot:
             self.wiki_answer = self.wikiquestion.getSummary()
             return self.json_answer()
 
-    def grandpy_find_location(self):
+    def grandpy_find_location(self, arg):
         """Return an answer with the google place api"""
         self.coord_lat = self.mapquestion.response['results'][0]['geometry']['location'][
             'lat']
@@ -136,8 +144,14 @@ class Bot:
             'lng']
         self.answer = a.random_answer(a.answer_location_find)
         self.map_answer = a.random_answer(a.answer_location_here)
-        if self.wikiquestion.exist():
-            self.wiki_answer = self.wikiquestion.getSummary()
+        newquestion = arg + self.clean_question(Parser.locationwords)
+        print(newquestion)
+        newwikiquestion = Wiki(newquestion)
+        if newwikiquestion.exist():
+            self.wiki_answer = newwikiquestion.getSummary()
         return self.json_answer()
+
+    def clean_words(self):
+        pass
 
 a = Answer()

@@ -1,3 +1,5 @@
+from country_list import countries_for_language
+from unidecode import unidecode
 class Parser:
     """Contains all list of words"""
     stop_words = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "ainsi",
@@ -78,7 +80,7 @@ class Parser:
                   "était", "étant", "été", "être", "ô", "salut", "grandpy", "papy", "papi",
                   "grand-py", "d", "l", "estce", "estu", "estil", "saurais", "connaitrais",
                   "veut", "veux", "bonjour", "wesh", "grandpapy", "te", "plait", "sil", "il",
-                  "s", "raconte"]
+                  "s", "raconte", "dit", "dis", "trouvez", "trouve", "trouves", "trouvais", "sais"]
 
     locationwords = ["sais", "savez", "connais", "connait", "connaissez", "adresse", "l'adresse", \
                      "indique", "trouver", "trouve", "trouvent", "trouves", "situe", "situent",
@@ -86,3 +88,14 @@ class Parser:
 
     adresslst = ["rue", "avenue", "ville", "allée", "allee", "chemin", "appartement",
                  "residence", "boulevard"]
+
+    countries = list(dict(countries_for_language('fr')).values())
+
+    cleaned_countries = []
+
+    def clean_countries(self):
+        for x in Parser.countries:
+            x = x.replace("-", ' ')
+            x = unidecode(x)
+            Parser.cleaned_countries.append(x.lower())
+

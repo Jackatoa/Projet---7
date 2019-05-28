@@ -15,6 +15,8 @@ class Wiki:
         self.lat = None
         self.long = None
         self.data = None
+        self.count = 0
+        self.secondcount = 0
 
     def getSummary(self):
         """Return the wikipedia summary"""
@@ -30,20 +32,16 @@ class Wiki:
         }
         new_resp = requests.get(url=self.api_url, params=parameters)
         self.pageid = next(iter(new_resp.json()['query']['pages']))
-        print("islocation  new_resp.json() = {0}".format(new_resp.json()))
         data = new_resp.json()
         if 'coordinates' in data['query']['pages'][self.pageid].keys():
-            print("wiki is location check")
             self.lat = new_resp.json()['query']['pages'][self.pageid]['coordinates'][0]['lat']
             self.long = new_resp.json()['query']['pages'][self.pageid]['coordinates'][0]['lon']
             return True
 
     def exist(self):
         """Check if something can be found with the user input"""
-        print("self.data = {0}".format(self.response.json()))
         if self.response.json()['query']['searchinfo']['totalhits'] != 0:
             self.title = self.response.json()['query']['search'][0]['title']
-            print(self.title)
             self.get_data()
             return True
 
@@ -62,17 +60,27 @@ class Wiki:
                       "explaintext": "1",
                       "exsentences": "2"
                       }
+        print("get data title {0}".format(self.title))
         self.data = requests.get(url=self.api_url, params=parameters).json()
+        print("self.data 1 {0}".format(self.data))
         self.pageid = next(iter(self.data['query']['pages']))
-        print("extract {0}".format(self.clean_result(self.data['query']['pages'][self.pageid]['extract'])))
-        if not self.clean_result(self.data['query']['pages'][self.pageid]['extract']):
+        if not self.clean_result(self.data['query']['pages'][self.pageid]['extract']) and \
+                self.count <= 2:
+            self.count += 1
             parameters = {"action": "query",
                            "format": "json",
-                           "srsearch": self.title,
+                           "srsearch": self.search,
                            "list": "search"}
             self.data = requests.get(url=self.api_url, params=parameters).json()
-            self.title = self.data['query']['search'][0]['title']
+            print("data count{0}".format(self.data))
+            self.get_new_title()
             self.get_data()
 
-
-
+    def get_new_title(self):
+        title = self.title
+        print("title avant new {0}".format(title))
+        while title == self.data['query']['search'][self.secondcount]['title']:
+            print(self.data['query']['search'][self.secondcount]['title'])
+            self.secondcount += 1
+            self.title = self.data['query']['search'][self.secondcount]['title']
+            print(self.title)

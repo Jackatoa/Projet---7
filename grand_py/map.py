@@ -19,7 +19,6 @@ class Map:
 
     def adress_exist(self):
         """Check if an adress can be found"""
-        print("adresse exist {0}".format(self.response['results']))
         if not self.response['results']:
             return False
         else:
@@ -28,19 +27,29 @@ class Map:
             self.longitude = self.location['lng']
             return True
 
-    def location_exist(self):
+    def location_exist(self, newarg):
         """Check if a location can be found"""
         url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        self.place += " france"
+        place = self.place + newarg
         parameters = {
-            'input'    : self.place,
+            'input'    : place,
             'key'      : 'AIzaSyBlM1lBFayUTLiN8ZiwczP6DWfWGNNYlT8',
             'inputtype': 'textquery',
             'language' : 'fr',
             'fields'   : 'geometry/location'
         }
         self.response = requests.get(url=url, params=parameters).json()
-        print("location exist {0}".format(self.response['results']))
         if self.response['results']:
             return True
 
+
+    def map_exist(self):
+        if self.location_exist(" France"):
+            print("place france exist")
+            return True
+        elif self.location_exist(" commune"):
+            print("place commune exist")
+            return True
+        elif self.adress_exist():
+            print("adress exist")
+            return True
