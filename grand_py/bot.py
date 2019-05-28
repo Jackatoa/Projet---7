@@ -92,8 +92,8 @@ class Bot:
         """Check which style of answer should be choosen"""
         if self.question in Parser.cleaned_countries:
             print("est un pays")
-            if self.question == "france":
-                self.grandpy_find_location("")
+            if self.question.lower() == "france":
+                self.grandpy_find_location(" ")
             else:
                 self.grandpy_find_location("pays ")
         elif self.check_adress() and self.mapquestion.adress_exist():
