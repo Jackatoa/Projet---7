@@ -44,7 +44,7 @@ class Parser:
                   "naturelle", "naturelles", "ne", "neanmoins", "necessaire", "necessairement",
                   "neuf", "neuvième", "ni", "nombreuses", "nombreux", "non", "nos", "notamment",
                   "notre", "nous", "nous-mêmes", "nouveau", "nul", "néanmoins", "nôtre", "nôtres",
-                  "o", "oh", "ohé", "ollé", "olé", "on", "ont", "onze", "onzième", "ore", "ou",
+                  "o", "oh", "ohé", "ollé", "olé", "on", "ont", "onze", "onzième", "ore",
                   "ouf", "ouias", "oust", "ouste", "outre", "ouvert", "ouverte", "ouverts", "o|",
                   "où", "p", "paf", "pan", "par", "parce", "parfois", "parle", "parlent", "parler",
                   "parmi", "parseme", "partant", "particulier", "particulière", "particulièrement",
@@ -54,10 +54,10 @@ class Parser:
                   "pouah", "pour", "pourquoi", "pourrais", "pourrait", "pouvait", "prealable",
                   "precisement", "premier", "première", "premièrement", "pres", "probable",
                   "probante", "procedant", "proche", "près", "psitt", "pu", "puis", "puisque",
-                  "pur", "pure", "q", "qu", "quand", "quant", "quant-à-soi", "quanta", "quarante",
-                  "quatorze", "quatre", "quatre-vingt", "quatrième", "quatrièmement", "que", "quel",
+                  "pur", "pure", "q", "qu", "quant", "quant-à-soi", "quanta", "quarante",
+                  "quatorze", "quatre", "quatre-vingt", "quatrième", "quatrièmement", "que",
                   "quelconque", "quelle", "quelles", "quelqu'un", "quelque", "quelques", "quels",
-                  "qui", "quiconque", "quinze", "quoi", "quoique", "r", "rare", "rarement", "rares",
+                  "quiconque", "quinze", "quoique", "r", "rare", "rarement", "rares",
                   "relative", "relativement", "remarquable", "rend", "rendre", "restant", "reste",
                   "restent", "restrictif", "retour", "revoici", "revoilà", "rien", "s", "sa",
                   "sacrebleu", "sait", "sans", "sapristi", "sauf", "se", "sein", "seize", "selon",
@@ -80,15 +80,17 @@ class Parser:
                   "était", "étant", "été", "être", "ô", "salut", "grandpy", "papy", "papi",
                   "grand-py", "d", "l", "estce", "estu", "estil", "saurais", "connaitrais",
                   "veut", "veux", "bonjour", "wesh", "grandpapy", "te", "plait", "sil", "il",
-                  "s", "raconte", "dit", "dis", "trouvez", "trouve", "trouves", "trouvais", "sais"]
+                  "s", "raconte", "dit", "dis", "trouvez", "trouve", "trouves", "trouvais",
+                  "sais", "etais", "etre", "ete"]
 
     locationwords = ["sais", "savez", "connais", "connait", "connaissez", "adresse", "l'adresse", \
                      "indique", "trouver", "trouve", "trouvent", "trouves", "situe", "situent",
-                     "situs", "affiche", "affichez", "montre", "montrez", "voir", "localisation"]
+                     "situs", "affiche", "affichez", "montre", "montrez", "voir", "localisation",
+                     "ou"]
 
     adresslst = ["rue", "avenue", "ville", "allée", "allee", "chemin", "appartement",
                  "residence", "boulevard"]
-
+    wikilst = ["qui", "quand", "quoi", "quel", "lequel"]
     countries = list(dict(countries_for_language('fr')).values())
 
     cleaned_countries = []

@@ -9,7 +9,6 @@ from unidecode import unidecode
 
 class Bot:
     """Contains main algorithms for the application"""
-
     def __init__(self, question):
         self.answer = None
         self.wiki_answer = None
@@ -92,7 +91,6 @@ class Bot:
             return False
 
     def grandpy_try(self):
-        print(self.question)
         """Check which style of answer should be choosen"""
         if self.question in Parser.cleaned_countries:
             print("est un pays")
@@ -101,21 +99,31 @@ class Bot:
                 self.grandpy_find_location(" ")
             else:
                 self.grandpy_find_location("pays ")
+        elif self.wikiquestion.exist() and self.check_wikiwords():
+            print("wiki exist")
+            self.grandpy_find_wiki()
         elif self.check_adress() and self.mapquestion.adress_exist():
             print("check adresse + adress_exist")
             self.grandpy_find_adress()
-        elif self.mapquestion.map_exist():
+        elif self.mapquestion.map_exist() and self.check_location():
             print("mapexist")
             self.grandpy_find_location("commune ")
-        elif self.wikiquestion.exist():
-            print("wiki exist")
-            self.grandpy_find_wiki()
         else:
             self.answer = self.answer.random_answer(Answer.answer_too_old)
 
     def check_adress(self):
         """Check if the question contain an adress type word"""
         if any(word in self.question for word in Parser.adresslst):
+            return True
+
+    def check_location(self):
+        """Check if the question contain a location type word"""
+        if any(word in self.question for word in Parser.locationwords):
+            return True
+
+    def check_wikiwords(self):
+        """Check if the question contain a wiki type word"""
+        if any(word in self.question for word in Parser.wikilst):
             return True
 
     def grandpy_find_adress(self):
@@ -153,9 +161,5 @@ class Bot:
         if newwikiquestion.exist():
             self.wiki_answer = newwikiquestion.getSummary()
         return self.json_answer()
-
-    def clean_words(self):
-        pass
-
 
 a = Answer()
