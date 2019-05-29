@@ -90,9 +90,10 @@ class Parser:
 
     adresslst = ["rue", "avenue", "ville", "allée", "allee", "chemin", "appartement",
                  "residence", "boulevard"]
-    wikilst = ["qui", "quand", "quoi", "quel", "lequel"]
+    wikilst = ["qui", "quand", "quoi", "quel", "lequel", "wiki", "wikipedia"]
     countries = list(dict(countries_for_language('fr')).values())
-
+    capitals = []
+    cleaned_capitals = []
     cleaned_countries = []
 
     def clean_countries(self):

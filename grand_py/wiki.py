@@ -60,27 +60,27 @@ class Wiki:
                       "explaintext": "1",
                       "exsentences": "2"
                       }
-        print("get data title {0}".format(self.title))
         self.data = requests.get(url=self.api_url, params=parameters).json()
-        print("self.data 1 {0}".format(self.data))
         self.pageid = next(iter(self.data['query']['pages']))
         if not self.clean_result(self.data['query']['pages'][self.pageid]['extract']) and \
                 self.count <= 2:
             self.count += 1
-            parameters = {"action": "query",
-                           "format": "json",
-                           "srsearch": self.search,
-                           "list": "search"}
-            self.data = requests.get(url=self.api_url, params=parameters).json()
-            print("data count{0}".format(self.data))
-            self.get_new_title()
-            self.get_data()
+            self.get_next_data()
 
-    def get_new_title(self):
+
+    def get_next_title(self):
         title = self.title
-        print("title avant new {0}".format(title))
         while title == self.data['query']['search'][self.secondcount]['title']:
-            print(self.data['query']['search'][self.secondcount]['title'])
             self.secondcount += 1
             self.title = self.data['query']['search'][self.secondcount]['title']
-            print(self.title)
+
+
+    def get_next_data(self):
+        parameters = {"action"  : "query",
+                      "format"  : "json",
+                      "srsearch": self.search,
+                      "list"    : "search"}
+        self.data = requests.get(url=self.api_url, params=parameters).json()
+        print("data count{0}".format(self.data))
+        self.get_next_title()
+        self.get_data()

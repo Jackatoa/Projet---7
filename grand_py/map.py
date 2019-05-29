@@ -39,9 +39,10 @@ class Map:
             'fields'   : 'geometry/location'
         }
         self.response = requests.get(url=url, params=parameters).json()
+        print(self.place)
+        print(self.response)
         if self.response['results']:
             return True
-
 
     def map_exist(self):
         if self.location_exist(" France"):

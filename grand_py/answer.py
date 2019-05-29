@@ -11,7 +11,7 @@ class Answer():
                             "J'y passe tout mes dimanches !"]
     answer_too_old = ["Tu sais je suis un peu dépassé avec les termes que vous employez vous " \
                       "les jeunes. Ne voudrais pas tu partager un werther's original plutôt ?",
-                      "Je suis trés impréssioner par ta maîtrise de ce langage, mais je n'y "
+                      "Je suis trés impréssionné par ta maîtrise de ce langage, mais je n'y "
                       "comprends rien.", "Ce n'est pas avec ça qu'on invoque Cthulu ?"]
     answer_location_here = ["Ca se trouve juste ici :", "Ca se trouve juste là :"]
 
