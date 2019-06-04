@@ -87,7 +87,7 @@ class Parser:
                      "indique", "trouver", "trouve", "trouvent", "trouves", "situe", "situent",
                      "situs", "affiche", "affichez", "montre", "montrez", "voir", "localisation",
                      "ou"]
-
+    continentslst = ["afrique", "europe", "asie", "amerique", "oceanie", "antarctique", "amerique sud", "amerique nord"]
     adresslst = ["rue", "avenue", "ville", "allée", "allee", "chemin", "appartement",
                  "residence", "boulevard"]
     wikilst = ["qui", "quand", "quoi", "quel", "lequel", "wiki", "wikipedia"]

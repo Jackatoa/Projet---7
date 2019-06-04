@@ -9,7 +9,6 @@ from unidecode import unidecode
 
 class Bot:
     """Contains main algorithms for the application"""
-
     def __init__(self, question):
         self.answer = None
         self.wiki_answer = None
@@ -17,11 +16,12 @@ class Bot:
         self.coord_lat = None
         self.coord_long = None
         self.question = question
-        self.parsedquestion = None
-        self.cleanedquestion = None
+        self.parsed_question = None
+        self.cleaned_question = None
         self.wikiquestion = None
         self.mapquestion = None
         self.zoom = 13
+
     def json_answer(self):
         """Check answer and return them in the json format"""
         if self.map_answer and self.wiki_answer:
@@ -43,8 +43,11 @@ class Bot:
             return jsonify({'answer': self.answer})
 
     def clean_question_from_false_spaces(self):
-        self.question = self.question.replace("'", ' ')
-        self.question = self.question.replace("-", ' ')
+        """clean and return a string without separating special chars"""
+        newquestion = self.question
+        newquestion = newquestion.replace("'", ' ')
+        newquestion = newquestion.replace("-", ' ')
+        return newquestion
 
     def clean_question_from_list(self, lst):
         """clean the questions of indesirable characters"""
@@ -56,7 +59,8 @@ class Bot:
         return ' '.join(new_list_question)
 
     def clean_question_for_search(self):
-        questioncleaned = self.parsedquestion
+        """return the final searched words"""
+        questioncleaned = self.parsed_question
         list_question = questioncleaned.split(" ")
         new_list_question = []
         for x in list_question:
@@ -64,58 +68,55 @@ class Bot:
         new_list_question = [x for x in new_list_question if x.lower() not in p.adresslst]
         new_list_question = [x for x in new_list_question if x.lower() not in p.locationwords]
         new_list_question = [x for x in new_list_question if x.lower() not in p.wikilst]
-        self.cleanedquestion = ' '.join(new_list_question)
+        return ' '.join(new_list_question)
 
     def generate_questions(self):
         self.question = unidecode(self.question)
-        self.clean_question_from_false_spaces()
-        self.parsedquestion = self.clean_question_from_list(p.stop_words)
-        self.clean_question_for_search()
+        self.question = self.clean_question_from_false_spaces()
+        self.parsed_question = self.clean_question_from_list(p.stop_words)
+        self.cleaned_question = self.clean_question_for_search()
+        self.wikiquestion = Wiki(self.cleaned_question)
+        self.mapquestion = Map(self.parsed_question, self.cleaned_question)
 
     def grandpyTalk(self):
+        """main function of answer"""
         p.clean_countries()
         self.generate_questions()
-        self.wikiquestion = Wiki(self.cleanedquestion)
-        self.mapquestion = Map(self.parsedquestion, self.cleanedquestion)
-        print("question = {0}, parsedquestion = {1}, cleanedquestion = {2}".format(self.question,
-                                                                                   self.parsedquestion,
-                                                                                   self.cleanedquestion))
-        if self.check_easy_answer():
-            print("easy answer find")
-        elif self.check_hard_answer():
-            print("hard answer find")
-        else:
-            self.answer = a.random_answer(Answer.answer_too_old)
+        self.check_easy_answer()
+        if self.answer is None:
+            self.check_hard_answer()
+            if self.answer is None:
+                self.answer = a.random_answer(Answer.answer_too_old)
         return self.json_answer()
 
     def check_easy_answer(self):
+        """check if the answer deserve a simple answer"""
         if self.question.isdigit():
             self.answer = a.get_stupid_answer(0)
-            return True
         elif "merci" in self.question.lower():
             self.answer = a.get_stupid_answer(5)
-            return True
+        elif "bonjour" in self.question.lower():
+            self.answer = a.random_answer(a.answer_hello)
         elif not re.search(r'[^.]', self.question):
             self.answer = a.get_stupid_answer(1)
-            return True
         elif not re.search(r'[^!]', self.question):
             self.answer = a.get_stupid_answer(2)
-            return True
         elif not re.search(r'[^zZ]', self.question):
             self.answer = a.get_stupid_answer(3)
-            return True
         elif not re.search('[a-zA-Z]', self.question):
             self.answer = a.get_stupid_answer(4)
-            return True
-    def Get_caps_for_wiki(self):
-        wordslst = self.cleanedquestion.split()
-        newwordslst = []
-        for x in wordslst:
-            newwordslst.append(x.capitalize())
-        self.cleanedquestion = ' '.join(newwordslst)
+        elif self.cleaned_question == "":
+            self.answer = a.random_answer(Answer.answer_too_old)
+
 
     def check_hard_answer(self):
-        if self.cleanedquestion in Parser.cleaned_countries:
+        """check if the answer deserve a real search"""
+        if self.cleaned_question in Parser.continentslst:
+            self.zoom = 2
+            self.mapquestion.location_exist(" continent")
+            self.grandpy_find_location()
+            self.get_wiki_for_location("continent ")
+        elif self.cleaned_question in Parser.cleaned_countries:
             self.zoom = 4
             if self.question.lower() == "france":
                 self.grandpy_find_location()
@@ -123,48 +124,46 @@ class Bot:
             else:
                 self.grandpy_find_location()
                 self.get_wiki_for_location("Pays ")
-            return True
         elif self.wikiquestion.exist() and self.check_wikiwords():
+            self.wikiquestion.get_data()
             self.grandpy_find_wiki()
-            return True
         elif self.check_adress() and self.mapquestion.adress_exist():
             self.grandpy_find_adress()
             self.zoom = 18
-            return True
         elif self.mapquestion.location_exist(" "):
             self.grandpy_find_location()
             self.get_wiki_for_location(" ")
-            return True
         elif self.mapquestion.location_exist(" France"):
             self.grandpy_find_location()
             self.get_wiki_for_location(" ")
-            return True
         elif self.mapquestion.location_exist(" commune"):
             self.grandpy_find_location()
             self.get_wiki_for_location("commune ")
-            return True
         elif self.mapquestion.adress_exist():
             self.grandpy_find_adress()
-            return True
 
     def grandpy_find_location(self):
-        """Return an answer with the google place api"""
-        self.coord_lat = self.mapquestion.response['results'][0]['geometry']['location']['lat']
-        self.coord_long = self.mapquestion.response['results'][0]['geometry']['location']['lng']
+        """Set an answer with the google place api"""
+        self.coord_lat = self.mapquestion.response.json()['results'][0]['geometry']['location'][
+                                                            'lat']
+        self.coord_long = self.mapquestion.response.json()['results'][0]['geometry']['location'][
+            'lng']
         self.answer = a.random_answer(a.answer_location_find)
         self.map_answer = a.random_answer(a.answer_location_here)
 
     def grandpy_find_adress(self):
-        """Return an answer with the google map api"""
+        """Set an answer with the google map api"""
         self.answer = a.random_answer(a.answer_location_find)
         self.map_answer = a.random_answer(a.answer_location_here)
         self.coord_lat = self.mapquestion.latitude
         self.coord_long = self.mapquestion.longitude
 
     def get_wiki_for_location(self, arg):
-        newquestion = arg + self.cleanedquestion
+        """return a wiki answer with special arguments"""
+        newquestion = arg + self.cleaned_question
         newwikiquestion = Wiki(newquestion)
         if newwikiquestion.exist():
+            newwikiquestion.get_data()
             self.wiki_answer = newwikiquestion.getSummary()
 
     def grandpy_find_wiki(self):
@@ -180,19 +179,18 @@ class Bot:
 
     def check_adress(self):
         """Check if the question contain an adress type word"""
-        if any(word in self.parsedquestion for word in Parser.adresslst):
+        if any(word in self.parsed_question for word in Parser.adresslst):
             return True
 
     def check_location(self):
         """Check if the question contain a location type word"""
-        if any(word in self.parsedquestion for word in Parser.locationwords):
+        if any(word in self.parsed_question for word in Parser.locationwords):
             return True
 
     def check_wikiwords(self):
         """Check if the question contain a wiki type word"""
-        if any(word in self.parsedquestion for word in Parser.wikilst):
+        if any(word in self.parsed_question for word in Parser.wikilst):
             return True
-
 
 p = Parser()
 a = Answer()

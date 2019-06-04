@@ -1,5 +1,6 @@
 from flask import Flask
+from grand_py.config import SECRET_KEY
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '56b82bea9531852b03bcc074e967a446'
+app.config['SECRET_KEY'] = SECRET_KEY
 from grand_py import routes

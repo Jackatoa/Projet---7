@@ -1,5 +1,5 @@
 import requests
-
+from grand_py.config import GOOGLE_API_KEY
 
 class Map:
     """Contains all the google api"""
@@ -9,9 +9,9 @@ class Map:
         self.place = place
         self.parameters = {
             'address': self.search,
-            'key'    : 'AIzaSyBlM1lBFayUTLiN8ZiwczP6DWfWGNNYlT8'
+            'key'    : GOOGLE_API_KEY
         }
-        self.response = requests.get(url=self.api_url, params=self.parameters).json()
+        self.response = requests.get(url=self.api_url, params=self.parameters)
         self.data = None
         self.location = None
         self.latitude = None
@@ -19,10 +19,10 @@ class Map:
 
     def adress_exist(self):
         """Check if an adress can be found"""
-        if not self.response['results']:
+        if not self.response.json()['results']:
             return False
         else:
-            self.location = self.response['results'][0]['geometry']['location']
+            self.location = self.response.json()['results'][0]['geometry']['location']
             self.latitude = self.location['lat']
             self.longitude = self.location['lng']
             return True
@@ -33,24 +33,11 @@ class Map:
         place = self.place + newarg
         parameters = {
             'input'    : place,
-            'key'      : 'AIzaSyBlM1lBFayUTLiN8ZiwczP6DWfWGNNYlT8',
+            'key'      : GOOGLE_API_KEY,
             'inputtype': 'textquery',
             'language' : 'fr',
             'fields'   : 'geometry/location'
         }
-        self.response = requests.get(url=url, params=parameters).json()
-        print(self.place)
-        print(self.response)
-        if self.response['results']:
-            return True
-
-    def map_exist(self):
-        if self.location_exist(" France"):
-            print("place france exist")
-            return True
-        elif self.location_exist(" commune"):
-            print("place commune exist")
-            return True
-        elif self.adress_exist():
-            print("adress exist")
+        self.response = requests.get(url=url, params=parameters)
+        if self.response.json()['results']:
             return True

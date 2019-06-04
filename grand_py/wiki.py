@@ -9,11 +9,11 @@ class Wiki:
                            "format": "json",
                            "srsearch": self.search,
                            "list": "search"}
-        self.response = requests.get(url=self.api_url, params=self.parameters)
         self.title = None
         self.pageid = None
         self.lat = None
         self.long = None
+        self.response = None
         self.data = None
         self.count = 0
         self.secondcount = 0
@@ -40,9 +40,9 @@ class Wiki:
 
     def exist(self):
         """Check if something can be found with the user input"""
-        if self.response.json()['query']['searchinfo']['totalhits'] != 0:
-            self.title = self.response.json()['query']['search'][0]['title']
-            self.get_data()
+        request = requests.get(url=self.api_url, params=self.parameters)
+        if request.json()['query']['searchinfo']['totalhits'] != 0:
+            self.response = request
             return True
 
     def clean_result(self, text):
@@ -52,6 +52,8 @@ class Wiki:
         return new_text
 
     def get_data(self):
+        """Get article data from a title"""
+        self.title = self.response.json()['query']['search'][0]['title']
         parameters = {"action"     : "query",
                       "prop"       : "extracts",
                       "format"     : "json",
@@ -69,6 +71,7 @@ class Wiki:
 
 
     def get_next_title(self):
+        """Select the next title in the dysambiguous page"""
         title = self.title
         while title == self.data['query']['search'][self.secondcount]['title']:
             self.secondcount += 1
@@ -76,11 +79,11 @@ class Wiki:
 
 
     def get_next_data(self):
+        """Reload a new data from a new title"""
         parameters = {"action"  : "query",
                       "format"  : "json",
                       "srsearch": self.search,
                       "list"    : "search"}
         self.data = requests.get(url=self.api_url, params=parameters).json()
-        print("data count{0}".format(self.data))
         self.get_next_title()
         self.get_data()
