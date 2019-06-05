@@ -44,19 +44,9 @@ SECRET_KEY = 'YOUR_SECRET_KEY'
 * [GoogleMaps](https://www.google.com/maps/) - Google Maps & Google Place
 * [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki/fr) - Wikimedia Collaboration Platform
 
-## Authors
+## Auteur
 
-* **Xavier Endres** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Xavier Endres** 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
