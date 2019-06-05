@@ -14,6 +14,7 @@ class Map:
         self.longitude = None
 
     def get_response(self, search):
+        """return the response from arg"""
         parameters = {
             'address': search,
             'key'    : GOOGLE_API_KEY
