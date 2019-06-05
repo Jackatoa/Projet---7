@@ -2,11 +2,7 @@
 
 Grandpy-Bot est un bot qui émule un chat avec un grand-père qui s'y connaît à fond en géographie et en culture générale, n'hésitez pas à lui parler ou lui demander des adresses il a beaucoup voyagé !
 
-## Pour commencer
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
+### Prérequis
 
 Tout les dépendances sont dans le fichier requirements.txt.
 
@@ -14,27 +10,25 @@ Tout les dépendances sont dans le fichier requirements.txt.
 $ pip install -r requirements.txt
 ```
 
-### Installing
+### Utilisation
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+GrandPy utiliser un algorithme qui tente de comprendre au mieux votre message, cependant il parle principalement un français correct sans trop de fautes d'orthographe et aura donc du mal avec votre langage SMS habituel ! Il a beau savoir utiliser un ordinateur comme un chef il préfererait que vous utiliser un langage correct !
 
 ```
-Give the example
+Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?
 ```
 
-And repeat
+Retournera des informations sur OpenClassrooms venant de wikipedia et une carte affichant sa position !
 
 ```
-until finished
+Sais tu où se trouve le Louvre ?
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Retournera des informations sur le Louvre venant de wikipedia et une carte affichant sa position !
 
-## Running the tests
+## Faire tourner le code soi même
 
-Explain how to run the automated tests for this system
+Pour pouvoir utiliser GrandPy depuis un autre site que Heroku vous aurez besoin d'une clé Google Api.
 
 ### Break down into end to end tests
 
