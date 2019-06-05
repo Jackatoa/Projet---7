@@ -29,44 +29,24 @@ Retournera des informations sur le Louvre venant de wikipedia et une carte affic
 ## Faire tourner le code soi même
 
 Pour pouvoir utiliser GrandPy depuis un autre site que Heroku vous aurez besoin d'une clé Google Api.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Créez un fichier config.py dans le dossier grand_py/ spécifiant une clé api Google et une clé secrète pour Flask.
 
 ```
-Give an example
+config.py
+
+GOOGLE_API_KEY = 'YOUR_GOOGLE_API_KEY'
+SECRET_KEY = 'YOUR_SECRET_KEY'
 ```
 
-### And coding style tests
+## Créé avec
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [Flask](http://flask.pocoo.org) - A Python Microframework
+* [GoogleMaps](https://www.google.com/maps/) - Google Maps & Google Place
+* [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki/fr) - Wikimedia Collaboration Platform
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Xavier Endres** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
