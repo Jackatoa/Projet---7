@@ -2,6 +2,7 @@ venv/
 .idea/
 Livrable/
 prez/
-grand_py/__pycache__/
+grand_py\__pycache__/
+grand_py\__pycache__
 grand_py/config.py
 grandpapy-bot/

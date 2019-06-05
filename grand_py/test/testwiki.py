@@ -6,9 +6,9 @@ import unittest
 class WikiTests(unittest.TestCase):
     def test_wiki_clean_result(self):
         element = w.clean_result(
-            "Nicolas Sarközy de Nagy-Bocsab, dit Nicolas Sarkozy (/ni.kɔ.la saʁ.kɔ.zi/c ["
+            "Nicolas Sarközy de Nagy-Bocsab, dit Nicolas Sarkozy (/ni.kɔ.la saʁ.kɔ.zi/c) ["
             "/ni.kɔ.la saʁ.kɔ.zi/c ]; ")
-        assert element == "Nicolas Sarközy de Nagy-Bocsab, dit Nicolas Sarkozy (/ni.kɔ.la saʁ.kɔ.zi/c ; "
+        assert element == "Nicolas Sarközy de Nagy-Bocsab, dit Nicolas Sarkozy  ; "
 
 
 def test_wiki_exist(monkeypatch):

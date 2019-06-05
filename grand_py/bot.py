@@ -71,6 +71,7 @@ class Bot:
         return ' '.join(new_list_question)
 
     def generate_questions(self):
+        """Generate questions for parser and searches"""
         self.question = unidecode(self.question)
         self.question = self.clean_question_from_false_spaces()
         self.parsed_question = self.clean_question_from_list(p.stop_words)
@@ -83,6 +84,8 @@ class Bot:
         p.clean_countries()
         self.generate_questions()
         self.check_easy_answer()
+        print("clean question = {0}, parsedquestion = {1}".format(self.cleaned_question,
+                                                                  self.parsed_question))
         if self.answer is None:
             self.check_hard_answer()
             if self.answer is None:
@@ -117,12 +120,21 @@ class Bot:
             self.grandpy_find_location()
             self.get_wiki_for_location("continent ")
         elif self.cleaned_question in Parser.cleaned_countries:
+            print("country found")
             self.zoom = 4
-            if self.question.lower() == "france":
-                self.grandpy_find_location()
+            if "france" in self.question.lower():
+                if self.mapquestion.response.json()['results']:
+                    self.grandpy_find_location()
+                else:
+                    self.mapquestion.response = self.mapquestion.get_response(self.cleaned_question)
+                    self.grandpy_find_location()
                 self.get_wiki_for_location(" ")
             else:
-                self.grandpy_find_location()
+                if self.mapquestion.response.json()['results']:
+                    self.grandpy_find_location()
+                else:
+                    self.mapquestion.response = self.mapquestion.get_response(self.cleaned_question)
+                    self.grandpy_find_location()
                 self.get_wiki_for_location("Pays ")
         elif self.wikiquestion.exist() and self.check_wikiwords():
             self.wikiquestion.get_data()
@@ -144,6 +156,7 @@ class Bot:
 
     def grandpy_find_location(self):
         """Set an answer with the google place api"""
+        print(self.mapquestion.response.json())
         self.coord_lat = self.mapquestion.response.json()['results'][0]['geometry']['location'][
                                                             'lat']
         self.coord_long = self.mapquestion.response.json()['results'][0]['geometry']['location'][

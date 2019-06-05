@@ -7,15 +7,18 @@ class Map:
         self.api_url = 'https://maps.googleapis.com/maps/api/geocode/json?'
         self.search = address
         self.place = place
-        self.parameters = {
-            'address': self.search,
-            'key'    : GOOGLE_API_KEY
-        }
-        self.response = requests.get(url=self.api_url, params=self.parameters)
+        self.response = self.get_response(self.search)
         self.data = None
         self.location = None
         self.latitude = None
         self.longitude = None
+
+    def get_response(self, search):
+        parameters = {
+            'address': search,
+            'key'    : GOOGLE_API_KEY
+        }
+        return requests.get(url=self.api_url, params=parameters)
 
     def adress_exist(self):
         """Check if an adress can be found"""

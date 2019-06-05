@@ -81,7 +81,7 @@ class Parser:
                   "grand-py", "d", "l", "estce", "estu", "estil", "saurais", "connaitrais",
                   "veut", "veux", "bonjour", "wesh", "grandpapy", "te", "plait", "sil", "il",
                   "s", "raconte", "dit", "dis", "trouvez", "trouve", "trouves", "trouvais",
-                  "sais", "etais", "etre", "ete"]
+                  "sais", "etais", "etre", "ete", "connais"]
 
     locationwords = ["sais", "savez", "connais", "connait", "connaissez", "adresse", "l'adresse", \
                      "indique", "trouver", "trouve", "trouvent", "trouves", "situe", "situent",

@@ -15,6 +15,7 @@ class Answer():
                       "comprends rien.", "Ce n'est pas avec ça qu'on invoque Cthulu ?"]
     answer_location_here = ["Ca se trouve juste ici :", "Ca se trouve juste là :"]
     answer_hello = ["Bonjour mon petit !", "Salut mon petit !", "Hallo mein kind !"]
+
     def get_stupid_answer(self, number):
         """Return a classic answer"""
         return Answer.answer_stupid[number]
