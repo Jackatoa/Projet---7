@@ -49,6 +49,7 @@ class Wiki:
         """Clean the summary from a type of content"""
         new_text = re.sub('\[(.*?)\]', '', text)
         new_text = re.sub('\((.*?)\)', '', new_text)
+        new_text = re.sub('\/(.*?)\/', '', new_text)
         return new_text
 
     def get_data(self):
