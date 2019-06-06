@@ -11,8 +11,10 @@ $ pip install -r requirements.txt
 ```
 
 ### Utilisation
+
 Vous pouvez questionner GrandPy ici : https://grandpapy-bot.herokuapp.com
-GrandPy utiliser un algorithme qui tente de comprendre au mieux votre message, cependant il parle principalement un français correct sans trop de fautes d'orthographe et aura donc du mal avec votre langage SMS habituel ! Il a beau savoir utiliser un ordinateur comme un chef il préfererait que vous utiliser un langage correct !
+
+GrandPy utilise un algorithme qui tente de comprendre au mieux votre message, cependant il parle principalement un français correct sans trop de fautes d'orthographe et aura donc du mal avec votre langage SMS habituel ! Il a beau savoir utiliser un ordinateur comme un chef il préfererait que vous utiliser un langage correct !
 
 ```
 Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?
