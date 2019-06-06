@@ -112,12 +112,12 @@ class Bot:
 
     def check_hard_answer(self):
         """check if the answer deserve a real search"""
-        if self.cleaned_question in Parser.continentslst:
+        if any(words in self.cleaned_question for words in Parser.continentslst):
             self.zoom = 2
             self.mapquestion.location_exist(" continent")
             self.grandpy_find_location()
             self.get_wiki_for_location("continent ")
-        elif self.cleaned_question in Parser.cleaned_countries:
+        elif any(words in self.cleaned_question for words in Parser.cleaned_countries):
             self.zoom = 4
             if "france" in self.question.lower():
                 if self.mapquestion.response.json()['results']:
